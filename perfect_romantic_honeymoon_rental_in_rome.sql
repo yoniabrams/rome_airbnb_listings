@@ -1,5 +1,5 @@
 SELECT
-	name,
+    name,
     availability_30 AS num_days_available_within_month,
     ROUND(6371 * acos(
 		cos(radians(41.86399717721101))
