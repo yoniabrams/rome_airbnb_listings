@@ -10,7 +10,7 @@ SELECT
 	), 2) AS km_to_fountain,
     REPLACE(price, '$', '') AS price_numeric,
     CASE
-		WHEN host_response_time = 'within an hour' THEN 1  # hours till response
+        WHEN host_response_time = 'within an hour' THEN 1  # hours till response
         WHEN host_response_time = 'within a few hours' THEN 12
         WHEN host_response_time = 'within a day' THEN 24
         WHEN host_response_time = 'a few days or more' THEN 72
@@ -19,15 +19,17 @@ SELECT
     room_type,
     description,
     listing_url
-FROM rome_listings
+FROM
+    rome_listings
 WHERE
-	availability_30 > 0 AND
-    beds = 1 AND  # I don't want a big place
-    host_is_superhost = 't' AND  # super reliable
+    availability_30 > 0 AND
+    beds = 1 AND
+    host_is_superhost = 't' AND
     room_type = 'Entire home/apt' AND
-    minimum_nights <= 3 AND maximum_nights >= 5  # i want to go between 3 and 5 days
+    minimum_nights <= 3 AND maximum_nights >= 5
 HAVING
-	km_to_fountain <= 1 AND
+    km_to_fountain <= 1 AND
     price_numeric <= 300 AND
     hours_till_host_response <= 24
-ORDER BY availability_30 DESC;
+ORDER BY
+    availability_30 DESC;
